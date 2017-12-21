@@ -1,7 +1,8 @@
 
 import * as express from "express";
 import { Application } from "express";
-import { sequelize } from "./server/db/db";
+// import { sequelize } from "./server/db/db";
+import * as dbConfig from "./server/dbmongo/db";
 import * as nconf from "nconf";
 
 import Server from "./server/index";
