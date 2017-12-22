@@ -1,6 +1,6 @@
 
-// import { sequelize } from "./../db/db";
-// import * as ORM from "sequelize";
+import { sequelize } from "./../dbmysql/db";
+import * as ORM from "sequelize";
 
 // export const Lesson = sequelize.define("Lesson", {
 //     url: ORM.STRING,
@@ -13,4 +13,12 @@
 //     gitHubUrl: ORM.STRING
 // });
 
+export const Users = sequelize.define('users',{
+	name: ORM.STRING,
+	password: ORM.STRING
+});
 
+export class User {
+	name : string;
+	password : string;
+}

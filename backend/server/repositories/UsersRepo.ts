@@ -1,6 +1,8 @@
 // import { Course } from '../models/Course';
 // import { Lesson } from '../models/Lesson';
 
+import { Users } from '../models/Users';
+
 // class LessonRepo {
 
 //     constructor() {    }
@@ -31,3 +33,20 @@
 // }
 
 // export default new LessonRepo();
+
+class UsersRepo {
+    constructor() {}
+
+    login(){
+        return Users.findAll();
+    }
+
+    signup(props:any){
+    	console.log(props);
+    	// var obj = Users.build(props);
+        // return obj.save();
+        return Users.create(props);
+    }
+}
+
+export default new UsersRepo();

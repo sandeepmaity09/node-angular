@@ -1,4 +1,4 @@
-// We will be handling login and signup in config 
+/*// We will be handling login and signup in config 
 
 // let LocalStrategy = require('passport-local').Strategy;
 // let User = require('../models/User');
@@ -20,9 +20,9 @@ passport.serializeUser<any,any>((user,done)=>{
 });
 
 passport.deserializeUser((id,done)=>{
-	User.findById(err,user) => {
+	User.findById((err,user) => {
 		done(err,user);
-	}
+	})
 });
 
 // Sign in using Email and Password
@@ -35,10 +35,10 @@ passport.use('local-login',new LocalStrategy({
 (req,email,password,done)=>{
 	User.findOne({'local.email':email},(error,user)=>{
 		if(error)
-			return done(err);
+			return done(error);
 		if(!user)
 			return done(null,false);
-		if(!user.validPassword(password))
+		if(!user.validPassword(password,locpassword))
 			return done(null,false);
 		return done(null,user);
 	})
@@ -52,22 +52,20 @@ passport.use('local-signup',new LocalStrategy({
 (req,email,password,done)=>{
 	process.nextTick(()=>{
 		User.findOne({'local.email':email},(error,user)=>{
-			if(err)
+			if(error)
 				return done(error);
 			if(user){
 				return done(null,false,req.flash('signupMessage','User already exist'))
 			} else {
-				let newUser = new User();
-				newUser.local.email = email;
-				newUser.local.password = newUser.generateHash(password);
-				newUser.save((error)=>{
-					if(error)
-						throw error;
-					return done(null,newUser);
-				})
+				// let newUser = new User();
+				// newUser.local.email = email;
+				// newUser.local.password = newUser.generateHash(password);
+				// newUser.save((error)=>{
+				// 	if(error)
+				// 		throw error;
+					// return done(null,false);
+				// })
 			}
 		})
 	})
-}));
-
-
+}));*/

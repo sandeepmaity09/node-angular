@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express';
+/*import { NextFunction, Request, Response, Router } from 'express';
 import { LocalStrategy } from 'passport-local';
 import { User } from '../repositories/User';
 
@@ -15,4 +15,4 @@ export default class UserCtrl {
 		let password = req.body.password;
 		
 	}
-}
+}*/

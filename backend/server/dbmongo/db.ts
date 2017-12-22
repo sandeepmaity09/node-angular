@@ -5,8 +5,6 @@
 // // const dbUrl: string = "postgres://postgres:mani@localhost:5432/complete-typescript-course";
 // const dbUrl: string = "mysql://root:root@localhost:3306/mysql";
 
-
-
 // const options: LoggingOptions = { benchmark: true, logging: console.log };
 
 
@@ -23,6 +21,4 @@
 
 // const dbUrl: string = "mongodb://backenduser:backenduser@localhost:27017/complete-typescript-course";
 
-module.exports = {
-	'dbUrl':'mongodb://backenduser:backenduser@localhost:27017/complete-typescript-course'
-}
+const dbUrl:string = 'mongodb://backenduser:backenduser@localhost:27017/complete-typescript-course'
