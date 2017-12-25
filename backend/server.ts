@@ -5,7 +5,7 @@ import { Application } from "express";
 // import * as dbConfig from "./server/dbmysql/db";
 import * as nconf from "nconf";
 
-import Server from "./server/index";
+import Server from "./src/index";
 
 const app: Application = express();
 const server: Server = new Server(app);

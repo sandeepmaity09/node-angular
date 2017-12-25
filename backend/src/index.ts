@@ -9,7 +9,8 @@ import * as path from "path";
 import { AppConfig } from "./config/config";
 
 import { unCoughtErrorHandler } from "./handlers/errorHandler";
-import Routes from "./routes";
+
+import Routes from "./app/router/routes";
 
 // import winston from 'winston';
 
