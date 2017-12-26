@@ -7,6 +7,11 @@ import * as fs from "fs";
 import { WriteStream } from "fs";
 import * as path from "path";
 import { AppConfig } from "./config/config";
+import * as bluebird from "bluebird";
+import * as mongoose from "mongoose";
+// import { mongoConfig } from './db/dbmongo/db';
+import { dbUrl } from './db/dbmongo/db';
+
 
 import { unCoughtErrorHandler } from "./handlers/errorHandler";
 
@@ -24,8 +29,8 @@ export default class Server {
     public config(app: Application): void {
         AppConfig();
         var logfile = path.join(__dirname, "./logs/access.log");
-        if(!fs.existsSync(logfile)){
-            fs.mkdirSync(__dirname+'/logs')
+        if (!fs.existsSync(logfile)) {
+            fs.mkdirSync(__dirname + '/logs')
         }
         // var expressWinston = require('expresss-winston');
         // var accessLogStream: WriteStream = fs.createWriteStream(logfile, { flags: "a" });
@@ -47,6 +52,25 @@ export default class Server {
         );*/
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(bodyParser.json());
+        // app.use(session({
+        //     resave: true,
+        //     saveUninitialized: true,
+        //     secret: process.env.SESSION_SECRET,
+        //     store: new MongoStore({
+        //         url: mongoUrl,
+        //         autoReconnect: true
+        //     })
+        // }));
+        // Connect to MongoDB
+        const mongoUrl = process.env.MONGOLAB_URI || dbUrl;
+        (<any>mongoose).Promise = bluebird;
+        mongoose.connect(mongoUrl, { useMongoClient: true }).then(
+            () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
+        ).catch(err => {
+            console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
+            // process.exit();
+        });
+
         // this hides the error and log the error so not use this in develpment mode
         // app.use(unCoughtErrorHandler);  
     }

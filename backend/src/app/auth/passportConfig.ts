@@ -1,76 +1,116 @@
-// // We will be handling login and signup in config 
+// import * as jwt from 'jwt-simple';
+// import { Router, Request, Response } from 'express';
 
-// // let LocalStrategy = require('passport-local').Strategy;
-// // let User = require('../models/User');
-
-// // module.exports = function(passport){
-
-// // }
-
-// import * as passport from "passport";
-// import * as passportLocal from "passport-local";
-// import { Request, Response, NextFunction } from "express";
-
-// import { Users } from "../../db/schemas/Users";
-
-// const LocalStrategy = passportLocal.Strategy;
-
-// passport.serializeUser<any,any>((user,done)=>{
-// 	done(undefined,user.id);
-// });
-
-// passport.deserializeUser((id,done)=>{
-// 	Users.findById(id).then()
-// })
-
-// // passport.deserializeUser((id,done)=>{
-// // 	Users.findById((err,user) => {
-// // 		done(err,user);
-// // 	})
-// // });
+// import { User } from '../../db/dbmongo/schemas/Users';
 
 
-// // Sign in using Email and Password
+// export class Auth extends BaseRoute {
 
-// // passport.use('local-login',new LocalStrategy({
-// // 	usernameField: 'email',
-// // 	passwordField: 'password',
-// // 	passReqToCallback: true
-// // },
-// // (req,email,password,done)=>{
-// // 	Users.findOne({'local.email':email},(error,user)=>{
-// // 		if(error)
-// // 			return done(error);
-// // 		if(!user)
-// // 			return done(null,false);
-// // 		if(!user.validPassword(password,locpassword))
-// // 			return done(null,false);
-// // 		return done(null,user);
-// // 	})
-// // }));
+//     public loginAction(router: Router): void {
+//         router.post('/login', (req: Request, res: Response) => {
+//             let email = req.body.email;
 
-// passport.use('local-signup',new LocalStrategy({
-// 	usernameField: 'email',
-// 	passwordField: 'password',
-// 	passReqToCallback: true
-// },
-// (req,email,password,done)=>{
-// 	process.nextTick(()=>{
-// 		Users.findOne({'local.email':email},(error,user)=>{
-// 			if(error)
-// 				return done(error);
-// 			if(user){
-// 				return done(null,false,req.flash('signupMessage','User already exist'))
-// 			} else {
-// 				// let newUser = new User();
-// 				// newUser.local.email = email;
-// 				// newUser.local.password = newUser.generateHash(password);
-// 				// newUser.save((error)=>{
-// 				// 	if(error)
-// 				// 		throw error;
-// 					// return done(null,false);
-// 				// })
-// 			}
-// 		})
-// 	})
-// }));
+//             const re = /\S+@\S+\.\S+/;
+            
+//             if (!re.test(email)) {
+//                 res.status(400);
+//                 res.json({
+//                     success: false,
+//                     message: 'wrong input.'
+//                 });
+//                 return false;
+//             }
+
+//             User.findByEmail(email, (err, user) => {
+//                 if(user) {
+//                     User.comparePassword(req.body.password, user.password, (err, isMatch) => {
+//                         if (err) {
+//                             res.status(500);
+//                             res.json({
+//                                 success: false,
+//                                 message: 'something went wrong.'
+//                             });
+//                         } else if (isMatch) {
+//                             const token = jwt.sign(user, process.env.APPLICATION_SECRET, {
+//                                 expiresIn: 604800 // 1 week
+//                             });
+
+//                             res.json({
+//                                 success: true,
+//                                 token: token,
+//                             });
+//                         } else {
+//                             res.status(400);
+//                             res.json({
+//                                 success: false,
+//                                 message: 'wrong credentials.'
+//                             });
+//                         }
+//                     });
+//                 } else {
+//                     res.status(400);
+//                     res.json({
+//                         success: false,
+//                         message: 'wrong credentials.'
+//                     });
+//                 }
+//             });
+//         });
+//     }
+
+//     public registerAction(router: Router): void {
+//         router.post('/register', (req: Request, res: Response) => {
+//             const re = /\S+@\S+\.\S+/;
+
+//             let name = req.body.name,
+//                 email = req.body.email,
+//                 password = req.body.password;
+
+//             if (!name || !re.test(email) || !password || password.length < 6) {
+//                 res.status(400);
+//                 res.json({
+//                     success: false,
+//                     message: 'wrong input.'
+//                 });
+//                 return false;
+//             }
+
+//             User.findByEmail(email, (err, user) => {
+//                 if (err) {
+//                     res.status(500);
+//                     res.json({
+//                         success: false,
+//                         message: 'something went wrong.'
+//                     });
+//                 } else if (!user) {
+//                     const user = new User({
+//                         name : name,
+//                         email: email,
+//                         password: password,
+//                     });
+
+//                     User.createUser(user, (err, user)=>{
+//                         if (err) {
+//                             res.status(500);
+//                             res.json({
+//                                 success: false,
+//                                 message: 'something went wrong.'
+//                             });
+//                         } else {
+//                             res.json({
+//                                 success: true,
+//                                 message: 'user created.'
+//                             });
+//                         }
+//                     });
+//                 } else {
+//                     res.status(400);
+//                     res.json({
+//                         success: false,
+//                         message: 'this email address has already been taken.'
+//                     });
+//                 }
+//             });
+//         });
+//     }
+// }

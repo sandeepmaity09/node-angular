@@ -2,7 +2,7 @@
 import * as express from "express";
 import { Application } from "express";
 // import { sequelize } from "./server/dbmysql/db";
-// import * as dbConfig from "./server/dbmysql/db";
+// import * as dbConfig from "./src/db/dbmongo/db";
 import * as nconf from "nconf";
 
 import Server from "./src/index";
@@ -19,4 +19,3 @@ app.listen(port, "localhost", function (err: any) {
     if (err) return err;
     console.info(`Server running on : http://localhost:${port}`);
 });
-

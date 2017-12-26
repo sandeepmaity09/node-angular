@@ -1,5 +1,5 @@
 
-import { sequelize } from "./../dbmysql/db";
+import { sequelize } from "../db";
 import * as ORM from "sequelize";
 import * as bcrypt from "bcrypt-nodejs";
 
